@@ -74,6 +74,7 @@ app.post('/token', (req, res) => {
         return;
     }
 
+    console.log('Signing request');
     const token = jwt.sign(req.body, privateKey, { algorithm: 'RS256'});
     res.set('Content-Type', 'text/plain');
     res.send(token);
