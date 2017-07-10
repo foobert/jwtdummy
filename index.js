@@ -56,6 +56,19 @@ app.get('/token', (req, res) => {
 });
 
 app.post('/token', (req, res) => {
+    if (req.query.grant_type === 'client_credentials' && req.query.scope === 'openid') {
+        console.log('Issuing openid token');
+        res.set('Content-Type', 'application/json');
+        res.send({
+            'access_token': 'foobar',
+            'scope': 'am_application_scope openid',
+            'id_token': 'this-is-you-mock-token',
+            'token_type': 'Bearer',
+            'expires_in': 3600,
+        });
+        return;
+    }
+
     if (req.get('Content-Type') !== 'application/json') {
         res.sendStatus(415);
         return;
