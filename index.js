@@ -59,8 +59,8 @@ app.get('/token', (req, res) => {
 app.post('/token', (req, res) => {
     if (req.body.grant_type === 'client_credentials' && req.body.scope === 'openid') {
         console.log('Issuing openid token');
-
-        const now = Math.floor(new Date() / 1000);
+        const issued_at = reg.header("issued_at");
+        const now = issued_at !== undefined ? issued_at : Math.floor(new Date() / 1000);
         const payload = {
             at_hash: "UtWKZ-HbClAE1rarsqpw6g",
             acr: "urn:mace:incommon:iap:silver",
