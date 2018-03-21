@@ -10,7 +10,7 @@ app.set("rsaKey", rsaKey);
 app.set("privateKey", privateKey);
 app.set("kid", kid);
 
-app.get("/", require("./lib/jwks"));
+app.get("/", require("./lib/readme"));
 app.get("/.well-known/jwks.json", require("./lib/jwks"));
 app.post("/token", require("./lib/openid"), require("./lib/sign"));
 
