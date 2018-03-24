@@ -14,8 +14,8 @@ function teardown {
 }
 
 function run {
-    local jwt=$(curl -sSL -XPOST -H "Content-Type: application/json" -d "{\"foo\":42}" "${URL}/token")
-    echo $jwt
+    export URL
+    $(npm bin)/mocha test/int.js
 }
 
 function wait {
@@ -25,7 +25,13 @@ function wait {
     done
 }
 
-trap teardown EXIT
+function main {
+    local image=${1:-foobert/jwtdummy:latest}
 
-setup e126a99ae437
-run
+    trap teardown EXIT
+
+    setup "${image}"
+    run
+}
+
+main
