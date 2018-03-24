@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+- docker
+
+language: node_js
+
+script:
+- docker build . -t foobert/jwtdummy
+- bin/test.sh
