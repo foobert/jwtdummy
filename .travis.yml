@@ -8,3 +8,7 @@ language: node_js
 script:
 - docker build . -t foobert/jwtdummy
 - bin/test.sh
+
+deploy:
+  provider: script
+  script: bash bin/push.sh
