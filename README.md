@@ -34,4 +34,6 @@ called `private.key`.
 
 ## Developing
 
+[![Build Status](https://travis-ci.org/foobert/jwtdummy.svg?branch=master)](https://travis-ci.org/foobert/jwtdummy)
+
 [Pull requests welcome!](https://github.com/foobert/jwtdummy)
