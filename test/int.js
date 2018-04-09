@@ -46,10 +46,51 @@ describe("jwtdummy", () => {
 
     expect(header.alg).to.equal("RS256");
     expect(header.typ).to.equal("JWT");
+    expect(header.kid).to.exist;
     expect(payload.foo).to.equal(42);
     expect(payload.bar).to.equal(23);
     expect(payload.iat).to.exist;
+    expect(payload.iss).to.exist;
     expect(signature).to.exist;
+  });
+
+  it("should generate a bare token on /token?bare", async () => {
+    let response = await request
+      .post(url + "/token")
+      .query({ bare: "" })
+      .type("json")
+      .send({ foo: 42, bar: 23 });
+
+    expect(response.ok).to.be.true;
+    expect(response.type).to.equal("text/plain");
+
+    let [header, payload, signature] = response.text.split(".");
+    header = JSON.parse(base64url.decode(header));
+    payload = JSON.parse(base64url.decode(payload));
+
+    expect(header.alg).to.equal("RS256");
+    expect(header.typ).to.equal("JWT");
+    expect(header.kid).to.not.exist;
+    expect(payload.foo).to.equal(42);
+    expect(payload.bar).to.equal(23);
+    expect(payload.iat).to.exist;
+    expect(payload.iss).to.not.exist;
+    expect(signature).to.exist;
+  });
+
+  it("should allow overriding iss", async () => {
+    let response = await request
+      .post(url + "/token")
+      .type("json")
+      .send({ foo: 42, bar: 23, iss: "custom iss value" });
+
+    expect(response.ok).to.be.true;
+    expect(response.type).to.equal("text/plain");
+
+    let payload = response.text.split(".")[1];
+    payload = JSON.parse(base64url.decode(payload));
+
+    expect(payload.iss).to.equal("custom iss value");
   });
 
   it("should play nice with x-www-form-urlencoded", async () => {
