@@ -4,6 +4,7 @@
   "description": "A stupid little dummy server to create JWT tokens",
   "main": "index.js",
   "author": "0x002a@gmail.com",
+  "repository": "https://github.com/foobert/jwtdummy",
   "license": "MIT",
   "scripts": {
     "start": "node index.js"
