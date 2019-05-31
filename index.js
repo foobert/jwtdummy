@@ -12,6 +12,7 @@ app.set("kid", kid);
 
 app.get("/", require("./lib/readme"));
 app.get("/.well-known/jwks.json", require("./lib/jwks"));
+app.get("/.well-known/openid-configuration", require("./lib/openid-configuration"));
 app.post("/token", require("./lib/openid"), require("./lib/sign"));
 
 app.listen(3000, () => {
