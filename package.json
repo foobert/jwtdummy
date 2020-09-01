@@ -17,7 +17,7 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "base64url": "^2.0.0",
+    "base64url": "^3.0.0",
     "chai": "^4.1.2",
     "mocha": "^5.0.5",
     "superagent": "^3.8.2"
